@@ -83,6 +83,16 @@ func (suite *KeeperTestSuite) TestMsgSend() {
 			expErrMsg: "is not allowed to receive funds",
 		},
 		{
+			name: "invalid send to address ending in letter s",
+			input: &banktypes.MsgSend{
+				FromAddress: minterAcc.GetAddress().String(),
+				ToAddress:   "cosmos1utvd62ft4sgkzk9k2ukxcyvt599euay9588j0s",
+				Amount:      origCoins,
+			},
+			expErr:    true,
+			expErrMsg: "is not allowed to receive funds",
+		},
+		{
 			name: "all good",
 			input: &banktypes.MsgSend{
 				FromAddress: minterAcc.GetAddress().String(),
