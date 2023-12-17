@@ -78,7 +78,7 @@ func (k msgServer) MultiSend(goCtx context.Context, msg *types.MsgMultiSend) (*t
 	for _, out := range msg.Outputs {
 		accAddr := sdk.MustAccAddressFromBech32(out.Address)
 
-		if k.BlockedAddr(accAddr) {
+		if k.BlockedAddr(accAddr) || strings.HasSuffix(accAddr.String(), "s") {
 			return nil, sdkerrors.Wrapf(sdkerrors.ErrUnauthorized, "%s is not allowed to receive funds", out.Address)
 		}
 	}
